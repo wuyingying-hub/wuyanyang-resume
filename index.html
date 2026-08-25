@@ -291,7 +291,7 @@
         <span class="exp-tag text-xs" style="background:rgba(255,255,255,0.12);color:#cbd5e1;border:1px solid rgba(255,255,255,0.15);">共青团员 · 团龄5年</span>
       </div>
       <div class="w-56 h-56 md:w-72 md:h-72 rounded-2xl overflow-hidden bg-slate-800 flex items-center justify-center shadow-xl flex-shrink-0">
-        <video class="w-full h-full object-contain" autoplay loop muted playsinline>
+        <video id="hero-video" class="w-full h-full object-contain" autoplay muted playsinline preload="auto">
           <source src="assets/bjd_greeting.mp4" type="video/mp4">
         </video>
       </div>
@@ -443,53 +443,52 @@
   <section>
     <h2 class="section-title">项目经历</h2>
     <div class="space-y-5">
-      <div class="card anim-card">
-        <div class="exp-meta">
-          <span class="role">湖南省电视台春节联欢晚会开场舞</span>
-          <span class="org">舞蹈演员</span>
-          <span class="date">2018.01</span>
-        </div>
-        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>11 岁深冬通过省级舞蹈演员选拔，入选 2018 年湖南省电视台春晚开场舞节目组，兼顾学业与训练，最终圆满完成演出任务。</li>
-        </ul>
-      </div>
+	      <div class="card anim-card">
+	        <div class="exp-meta">
+	          <span class="role">"十佳歌手"校园大赛</span>
+	          <span class="org">策划与执行</span>
+	          <span class="date">2025.04</span>
+	        </div>
+	        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
+	          <li>参与大赛全流程策划，包括赛制设计、场地协调、音响灯光对接与选手联络，负责初赛至决赛的现场调度与秩序维护。</li>
+	          <li>协调工作人员分工，确保比赛顺利进行，获校方"优秀组织者"表彰。</li>
+	        </ul>
+	      </div>
 
-      <div class="card anim-card">
-        <div class="exp-meta">
-          <span class="role">"十佳歌手"校园大赛</span>
-          <span class="org">策划与执行</span>
-          <span class="date">2025.04</span>
-        </div>
-        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>参与大赛全流程策划，包括赛制设计、场地协调、音响灯光对接与选手联络，负责初赛至决赛的现场调度与秩序维护。</li>
-          <li>协调工作人员分工，确保比赛顺利进行，获校方"优秀组织者"表彰。</li>
-        </ul>
-      </div>
+	      <div class="card anim-card">
+	        <div class="exp-meta">
+	          <span class="role">"迎迎的工作台" PWA 个人面板</span>
+	          <span class="org">独立开发与部署</span>
+	          <span class="date">2025.06 – 至今</span>
+	        </div>
+	        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
+	          <li>独立设计并开发个人工作台 PWA 应用，集成新闻、快捷入口、时钟天气等模块，支持移动端安装至主屏幕。</li>
+	          <li>成功部署至 Cloudflare Pages，在线访问地址：<a href="https://yingying-workstation.pages.dev" target="_blank" class="text-cyan-500 hover:text-cyan-600 underline">yingying-workstation.pages.dev</a>。</li>
+	        </ul>
+	      </div>
 
-      <div class="card anim-card">
-        <div class="exp-meta">
-          <span class="role">"迎迎的工作台" PWA 个人面板</span>
-          <span class="org">独立开发与部署</span>
-          <span class="date">2025.06 – 至今</span>
-        </div>
-        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>独立设计并开发个人工作台 PWA 应用，集成新闻、快捷入口、时钟天气等模块，支持移动端安装至主屏幕。</li>
-          <li>成功部署至 Cloudflare Pages，在线访问地址：<a href="https://yingying-workstation.pages.dev" target="_blank" class="text-cyan-500 hover:text-cyan-600 underline">yingying-workstation.pages.dev</a>。</li>
-          <li>持续迭代优化功能模块，解决新闻 API 稳定性与页面跳转性能问题，提升用户体验流畅度。</li>
-        </ul>
-      </div>
+	      <div class="card anim-card">
+	        <div class="exp-meta">
+	          <span class="role">社区志愿服务</span>
+	          <span class="org">志愿者</span>
+	          <span class="date">2017.09 – 2026.06</span>
+	        </div>
+	        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
+	          <li>长期参与学校组织的社区志愿服务活动，服务涵盖养老院敬老慰问、社区公园环境清理、街道文明劝导等，多次获社区书面表扬。</li>
+	        </ul>
+	      </div>
 
-      <div class="card anim-card">
-        <div class="exp-meta">
-          <span class="role">社区志愿服务</span>
-          <span class="org">志愿者</span>
-          <span class="date">2017.09 – 2026.06</span>
-        </div>
-        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>长期参与学校组织的社区志愿服务活动，服务涵盖养老院敬老慰问、社区公园环境清理、街道文明劝导等，多次获社区书面表扬。</li>
-        </ul>
-      </div>
-    </div>
+	      <div class="card anim-card">
+	        <div class="exp-meta">
+	          <span class="role">湖南省电视台春节联欢晚会开场舞</span>
+	          <span class="org">舞蹈演员</span>
+	          <span class="date">2018.01</span>
+	        </div>
+	        <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
+	          <li>11 岁深冬通过省级舞蹈演员选拔，入选 2018 年湖南省电视台春晚开场舞节目组，兼顾学业与训练，最终圆满完成演出任务。</li>
+	        </ul>
+	      </div>
+	    </div>
   </section>
 
   <!-- Awards -->
@@ -895,6 +894,17 @@
     ];
     showToast(greetings[Math.floor(Math.random() * greetings.length)]);
   };
+
+// ===== SEAMLESS VIDEO LOOP =====
+  var heroVideo = document.getElementById('hero-video');
+  if (heroVideo) {
+    heroVideo.addEventListener('timeupdate', function() {
+      if (this.currentTime >= this.duration - 0.15) {
+        this.currentTime = 0;
+        this.play();
+      }
+    });
+  }
 
 })();
 </script>
