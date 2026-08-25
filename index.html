@@ -284,34 +284,39 @@
 <header class="relative overflow-hidden" style="background: linear-gradient(160deg, #0f172a 0%, #1e293b 40%, #0f2744 100%);">
   <div class="absolute inset-0 opacity-10" style="background: radial-gradient(ellipse at 20% 50%, #06b6d4 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, #10b981 0%, transparent 60%);"></div>
   <div class="max-w-4xl mx-auto px-6 py-20 md:py-28 relative z-10">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-      <div>
-        <div class="flex items-center gap-3 mb-3">
-          <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight">伍彦阳</h1>
-          <span class="exp-tag text-xs" style="background:rgba(255,255,255,0.12);color:#cbd5e1;border:1px solid rgba(255,255,255,0.15);">共青团员 · 团龄5年</span>
-        </div>
-        <p class="text-lg md:text-xl text-slate-300 mt-2">
-          <span class="typewriter-text" id="typewriter"></span><span class="typewriter-cursor"></span>
-        </p>
-        <p class="text-sm text-slate-400 mt-3 max-w-md">
-          中国民用航空飞行学院 · 英语专业（民航方向）<br>
-          钢琴十级 / 舞蹈十级 / 乐理三级 · 舞台与学术并重
-        </p>
+    <!-- 第一行：姓名 + 视频并排 -->
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+      <div class="flex items-center gap-3">
+        <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight">伍彦阳</h1>
+        <span class="exp-tag text-xs" style="background:rgba(255,255,255,0.12);color:#cbd5e1;border:1px solid rgba(255,255,255,0.15);">共青团员 · 团龄5年</span>
       </div>
-      <div class="flex flex-col gap-3">
-        <button class="btn-primary" onclick="copyEmail()" id="btn-email">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
-          复制邮箱
-        </button>
-        <button class="btn-ghost" style="color:#cbd5e1;border-color:rgba(255,255,255,0.2);" onclick="sayHello()" id="btn-hello">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-          打招呼
-        </button>
-        <div class="text-slate-400 text-xs mt-1">
-          <p>3142915185@qq.com</p>
-          <p>wyy10221201@icloud.com</p>
-        </div>
+      <div class="w-56 h-56 md:w-72 md:h-72 rounded-2xl overflow-hidden bg-slate-800 flex items-center justify-center shadow-xl flex-shrink-0">
+        <video class="w-full h-full object-contain" autoplay loop muted playsinline>
+          <source src="assets/bjd_greeting.mp4" type="video/mp4">
+        </video>
       </div>
+    </div>
+    <!-- 第二行：打字机 + 学校信息 -->
+    <div class="mb-6">
+      <p class="text-lg md:text-xl text-slate-300">
+        <span class="typewriter-text" id="typewriter"></span><span class="typewriter-cursor"></span>
+      </p>
+      <p class="text-sm text-slate-400 mt-3 max-w-md">
+        中国民用航空飞行学院 · 英语专业（民航方向）<br>
+        全国合唱二等奖
+      </p>
+    </div>
+    <!-- 第三行：按钮 -->
+    <div class="flex flex-wrap items-center gap-3">
+      <button class="btn-primary" onclick="copyEmail()" id="btn-email">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+        复制邮箱
+      </button>
+      <button class="btn-ghost" style="color:#cbd5e1;border-color:rgba(255,255,255,0.2);" onclick="sayHello()" id="btn-hello">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        打招呼
+      </button>
+      <span class="text-slate-400 text-xs ml-2">3142915185@qq.com · wyy10221201@icloud.com</span>
     </div>
   </div>
 </header>
@@ -329,7 +334,7 @@
           <span class="org">英语专业（民航方向）</span>
           <span class="date">2026.09 – 至今</span>
         </div>
-        <p class="text-slate-600 text-sm">中央部委直属高校，民航特色英语专业，涵盖民航英语、航空翻译、跨文化交际等核心课程。</p>
+        <p class="text-slate-600 text-sm">中央部委直属高校，民航特色英语专业，学习民航英语、航空翻译、跨文化交际等课程。</p>
       </div>
       <div class="card anim-card">
         <div class="exp-meta">
@@ -337,7 +342,7 @@
           <span class="org">高中</span>
           <span class="date">2023.09 – 2026.06</span>
         </div>
-        <p class="text-slate-600 text-sm">全国百强高中，位列长沙"五大名校"阵营。高考英语 126 分，在校期间担任文艺委员、自管会体育部部长、文学社副社长等多重学生干部职务。</p>
+        <p class="text-slate-600 text-sm">全国百强高中，位列长沙"五大名校"阵营。在校期间担任文艺委员、自管会体育部部长、文学社副社长等多重学生干部职务。</p>
       </div>
     </div>
   </section>
@@ -351,28 +356,28 @@
           <span class="text-lg">🌐</span>
           <h3 class="font-bold text-slate-800">语言能力</h3>
         </div>
-        <p class="text-sm text-slate-600">高考英语 126 分，扎实的听说读写能力，可进行日常与学术场景全英文交流。</p>
+        <p class="text-sm text-slate-600">英语听说读写能力扎实，可进行日常交流与学术场景英语应用。</p>
       </div>
       <div class="card anim-card">
         <div class="flex items-center gap-2 mb-2">
           <span class="text-lg">📊</span>
           <h3 class="font-bold text-slate-800">办公软件</h3>
         </div>
-        <p class="text-sm text-slate-600">熟练使用 WPS Office 全套，能独立完成高质量演示文稿设计与文档排版。</p>
+        <p class="text-sm text-slate-600">熟练使用 WPS Office，能完成演示文稿制作与文档排版。</p>
       </div>
       <div class="card anim-card">
         <div class="flex items-center gap-2 mb-2">
           <span class="text-lg">🎬</span>
           <h3 class="font-bold text-slate-800">视频剪辑</h3>
         </div>
-        <p class="text-sm text-slate-600">具备独立视频制作能力，曾为班级晚会节目完成片段剪辑、字幕添加与导唱音轨合成。</p>
+        <p class="text-sm text-slate-600">会基本的视频剪辑操作，曾为班级晚会节目完成片段剪辑、字幕添加与导唱音轨合成。</p>
       </div>
       <div class="card anim-card">
         <div class="flex items-center gap-2 mb-2">
           <span class="text-lg">🎹</span>
           <h3 class="font-bold text-slate-800">艺术特长</h3>
         </div>
-        <p class="text-sm text-slate-600">钢琴十级、舞蹈十级、乐理三级，具备专业舞台演出经验与合唱指挥能力。</p>
+        <p class="text-sm text-slate-600">钢琴十级、舞蹈十级、乐理三级，有舞台演出与合唱指挥经验。</p>
       </div>
     </div>
   </section>
@@ -388,9 +393,9 @@
           <span class="date">2024.09 – 2026.06</span>
         </div>
         <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>从体育部骨干成员被民意推选为部长，统筹管理部门 <strong class="text-slate-800">10+ 人团队</strong>，负责全校早操、课间操及大型体育活动的秩序维护与执行。</li>
+          <li>从体育部骨干成员被民意推选为部长，管理部门日常工作，负责全校早操、课间操及大型体育活动的秩序维护。</li>
           <li>制定每阶段工作排期与分工方案，每周与上级教师进行复盘，推动考勤管理效率提升约 <strong class="text-slate-800">30%</strong>。</li>
-          <li>牵头组织校级田径运动会部门协调工作，对接 3 个年级、20+ 班级，保障赛事 <strong class="text-slate-800">零失误</strong>运行。</li>
+          <li>牵头组织校级田径运动会部门协调工作，对接各年级班级，保障赛事顺利进行。</li>
         </ul>
       </div>
 
@@ -401,9 +406,9 @@
           <span class="date">2024.03 – 2025.12</span>
         </div>
         <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>主导社团纳新宣传与面试，一学期内招募新社员 <strong class="text-slate-800">60+ 人</strong>，社团规模同比增长约 <strong class="text-slate-800">50%</strong>。</li>
-          <li>策划并组织全校<strong class="text-slate-800">第一届</strong>文学作品大赛，征集稿件 100+ 篇，邀请语文教研组教师组成评审团，评选出 15 篇获奖作品。</li>
-          <li>统筹获奖作品编辑、排版与校审，最终汇编为校刊《明德文学》第一期，印刷发行 <strong class="text-slate-800">500 册</strong>。</li>
+          <li>主导社团纳新宣传与面试，招募新社员，扩大社团规模与影响力。</li>
+          <li>策划并组织全校文学作品大赛，邀请语文教研组教师组成评审团，评选出优秀作品。</li>
+          <li>统筹获奖作品编辑、排版与校审，汇编为校刊《明德文学》第一期。</li>
         </ul>
       </div>
 
@@ -414,7 +419,7 @@
           <span class="date">2023.09 – 2026.06</span>
         </div>
         <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>担任班级合唱比赛指挥与排练指导，比赛期间每日利用大课间带领 <strong class="text-slate-800">50+ 名</strong>同学进行发声练习、声部精细打磨与复盘。</li>
+          <li>担任班级合唱比赛指挥与排练指导，比赛期间每日利用大课间带领同学进行发声练习、声部打磨与复盘。</li>
           <li>辅助音乐教师完成曲目编排与舞台调度，带领班级获湖南省中学生合唱比赛 <strong class="text-slate-800">一等奖第一名</strong>。</li>
           <li>策划班级元旦文艺晚会，为个人歌曲串烧节目独立剪辑制作含影视剧片段、字幕与导唱的视频，获"最佳节目"。</li>
         </ul>
@@ -427,8 +432,8 @@
           <span class="date">2023.09 – 2024.12</span>
         </div>
         <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>作为纪检部<strong class="text-slate-800">唯一初中部选拔成员</strong>，参与全校 60+ 班级日常纪律检查、卫生评比与校风督查工作。</li>
-          <li>轮值负责早读、午休、晚自习三时段巡检，累计撰写检查通报 50+ 份，数据准确率 <strong class="text-slate-800">100%</strong>。</li>
+          <li>作为纪检部从初中部选拔的成员，参与全校日常纪律检查、卫生评比与校风督查工作。</li>
+          <li>轮值负责早读、午休、晚自习三时段巡检，累计撰写检查通报多份。</li>
         </ul>
       </div>
     </div>
@@ -445,8 +450,7 @@
           <span class="date">2018.01</span>
         </div>
         <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>11 岁深冬通过省级舞蹈演员选拔，入选 2018 年湖南省电视台春晚开场舞节目组。</li>
-          <li>在高强度排练周期内兼顾学业与训练，连续 3 周每日训练 4+ 小时，最终圆满完成面向全省播出的直播演出任务。</li>
+          <li>11 岁深冬通过省级舞蹈演员选拔，入选 2018 年湖南省电视台春晚开场舞节目组，兼顾学业与训练，最终圆满完成演出任务。</li>
         </ul>
       </div>
 
@@ -457,9 +461,8 @@
           <span class="date">2025.04</span>
         </div>
         <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>参与大赛全流程策划，包括赛制设计、场地协调、音响灯光对接与选手联络。</li>
-          <li>负责初赛至决赛 3 轮赛程的现场调度与秩序维护，覆盖参赛选手 <strong class="text-slate-800">80+ 人</strong>、现场观众 <strong class="text-slate-800">500+ 人</strong>。</li>
-          <li>协调 10+ 名工作人员分工，确保比赛零失误、零超时，获校方"优秀组织者"表彰。</li>
+          <li>参与大赛全流程策划，包括赛制设计、场地协调、音响灯光对接与选手联络，负责初赛至决赛的现场调度与秩序维护。</li>
+          <li>协调工作人员分工，确保比赛顺利进行，获校方"优秀组织者"表彰。</li>
         </ul>
       </div>
 
@@ -470,7 +473,7 @@
           <span class="date">2025.06 – 至今</span>
         </div>
         <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>独立设计并开发个人工作台 PWA 应用，集成新闻资讯、快捷入口、时钟天气等模块，支持移动端安装至主屏幕。</li>
+          <li>独立设计并开发个人工作台 PWA 应用，集成新闻、快捷入口、时钟天气等模块，支持移动端安装至主屏幕。</li>
           <li>成功部署至 Cloudflare Pages，在线访问地址：<a href="https://yingying-workstation.pages.dev" target="_blank" class="text-cyan-500 hover:text-cyan-600 underline">yingying-workstation.pages.dev</a>。</li>
           <li>持续迭代优化功能模块，解决新闻 API 稳定性与页面跳转性能问题，提升用户体验流畅度。</li>
         </ul>
@@ -483,8 +486,7 @@
           <span class="date">2017.09 – 2026.06</span>
         </div>
         <ul class="space-y-2 text-sm text-slate-600 list-disc list-inside marker:text-cyan-400">
-          <li>连续 <strong class="text-slate-800">9 年</strong>参与学校组织的社区志愿服务活动，累计服务时长超 <strong class="text-slate-800">200 小时</strong>。</li>
-          <li>服务涵盖养老院敬老慰问、社区公园环境清理、街道"小雷锋"文明劝导等，多次获社区书面表扬。</li>
+          <li>长期参与学校组织的社区志愿服务活动，服务涵盖养老院敬老慰问、社区公园环境清理、街道文明劝导等，多次获社区书面表扬。</li>
         </ul>
       </div>
     </div>
@@ -554,7 +556,7 @@
   <!-- ==================== 个人风采 ==================== -->
   <section>
     <h2 class="section-title">个人风采</h2>
-    <p class="text-sm text-slate-500 mb-5">点击图片可放大查看，以下为伍彦阳的各类证书、获奖名单及演出照片。</p>
+    <p class="text-sm text-slate-500 mb-5">点击可放大查看，以下为各类证书、获奖名单及演出照片。</p>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
       <!-- 钢琴十级 -->
       <div class="card anim-card p-3 overflow-hidden group cursor-pointer" onclick="openLightbox('assets/钢琴十级证书.jpg')">
@@ -609,18 +611,7 @@
             <span class="text-xs mt-1">添加照片</span>
           </div>
         </div>
-        <p class="text-xs text-slate-500 mt-2 text-center">舞蹈队《竹马笃笃驾》</p>
-      </div>
-      <!-- 班级分配 -->
-      <div class="card anim-card p-3 overflow-hidden group cursor-pointer" onclick="openLightbox('assets/班级分配名单.jpg')">
-        <div class="aspect-[4/3] rounded-lg bg-slate-100 flex items-center justify-center overflow-hidden relative">
-          <img src="assets/班级分配名单.jpg" alt="班级分配名单" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="flex-col items-center justify-center text-slate-400" style="display:none;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <span class="text-xs mt-1">添加照片</span>
-          </div>
-        </div>
-        <p class="text-xs text-slate-500 mt-2 text-center">明德中学分班名单</p>
+        <p class="text-xs text-slate-500 mt-2 text-center">舞蹈队演出合影</p>
       </div>
     </div>
   </section>
