@@ -255,6 +255,80 @@
   table tbody tr:last-child td { border-bottom: none; }
   table tbody tr:hover { background: rgba(6,182,212,0.03); }
 
+  /* ===== Top Nav ===== */
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 9000;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--slate-200);
+    padding: 0.5rem 1rem;
+  }
+  .top-nav-inner {
+    max-width: 56rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.15rem 0.3rem;
+  }
+  .top-nav a {
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--slate-600);
+    text-decoration: none;
+    border-radius: 20px;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+  .top-nav a:hover {
+    color: var(--cyan);
+    background: rgba(6,182,212,0.08);
+  }
+  .top-nav a.active {
+    color: #fff;
+    background: linear-gradient(135deg, var(--cyan), var(--emerald));
+  }
+
+  /* ===== Ability Matrix ===== */
+  .skill-bar-wrap {
+    margin-bottom: 1.25rem;
+  }
+  .skill-bar-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+  }
+  .skill-bar-label span:first-child {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--slate-700);
+  }
+  .skill-bar-label span:last-child {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+  .skill-bar-track {
+    height: 8px;
+    background: var(--slate-100);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--cyan), var(--emerald));
+    border-radius: 6px;
+    transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
   /* ===== Responsive ===== */
   @media (max-width: 768px) {
     .card { padding: 1.25rem 1.25rem; }
@@ -279,8 +353,23 @@
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<!-- ===== TOP NAVIGATION ===== -->
+<nav class="top-nav" id="top-nav">
+  <div class="top-nav-inner">
+    <a href="#hero" data-nav="hero">首页</a>
+    <a href="#education" data-nav="education">教育</a>
+    <a href="#skills" data-nav="skills">技能</a>
+    <a href="#matrix" data-nav="matrix">能力矩阵</a>
+    <a href="#experience" data-nav="experience">经历</a>
+    <a href="#projects" data-nav="projects">项目</a>
+    <a href="#awards" data-nav="awards">获奖证书</a>
+    <a href="#gallery" data-nav="gallery">个人风采</a>
+    <a href="#videos" data-nav="videos">视频</a>
+  </div>
+</nav>
+
 <!-- ==================== HERO ==================== -->
-<header class="relative overflow-hidden" style="background: linear-gradient(160deg, #0f172a 0%, #1e293b 40%, #0f2744 100%);">
+<header id="hero" class="relative overflow-hidden" style="background: linear-gradient(160deg, #0f172a 0%, #1e293b 40%, #0f2744 100%);">
   <div class="absolute inset-0 opacity-10" style="background: radial-gradient(ellipse at 20% 50%, #06b6d4 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, #10b981 0%, transparent 60%);"></div>
   <div class="max-w-4xl mx-auto px-6 py-20 md:py-28 relative z-10">
     <!-- 第一行：姓名 + 视频并排 -->
@@ -324,7 +413,7 @@
 <main class="max-w-4xl mx-auto px-6 py-12 space-y-14">
 
   <!-- Education -->
-  <section>
+  <section id="education">
     <h2 class="section-title">教育背景</h2>
     <div class="space-y-4">
       <div class="card anim-card">
@@ -347,9 +436,16 @@
   </section>
 
   <!-- Skills -->
-  <section>
+  <section id="skills">
     <h2 class="section-title">专业技能</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="card anim-card">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-lg">🤖</span>
+          <h3 class="font-bold text-slate-800">AI 应用</h3>
+        </div>
+        <p class="text-sm text-slate-600">获阿里达摩院"人工智能训练师"高级证书，具备 AI 工具使用与智能客服训练能力。</p>
+      </div>
       <div class="card anim-card">
         <div class="flex items-center gap-2 mb-2">
           <span class="text-lg">🌐</span>
@@ -381,8 +477,49 @@
     </div>
   </section>
 
+  <!-- ===== ABILITY MATRIX ===== -->
+  <section id="matrix">
+    <h2 class="section-title">能力矩阵</h2>
+    <div class="card anim-card">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>英语应用</span><span>80%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="80"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>办公软件 (WPS/PPT)</span><span>90%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="90"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>视频剪辑</span><span>78%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="78"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>艺术特长 (声乐)</span><span>95%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="95"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>组织协调</span><span>85%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="85"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>沟通表达</span><span>88%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="88"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>AI 工具应用</span><span>80%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="80"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>团队协作</span><span>87%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="87"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Experience -->
-  <section>
+  <section id="experience">
     <h2 class="section-title">学生工作经历</h2>
     <div class="space-y-5">
       <div class="card anim-card">
@@ -439,7 +576,7 @@
   </section>
 
   <!-- Projects -->
-  <section>
+  <section id="projects">
     <h2 class="section-title">项目经历</h2>
     <div class="space-y-5">
 		      <div class="card anim-card">
@@ -502,7 +639,7 @@
   </section>
 
   <!-- Awards -->
-  <section>
+  <section id="awards">
     <h2 class="section-title">获奖与证书</h2>
     <div class="table-wrap">
       <table>
@@ -515,6 +652,12 @@
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td><span class="exp-tag">AI</span></td>
+            <td>达摩院·人工智能训练师（高级）</td>
+            <td><strong>高级证书</strong></td>
+            <td>2026</td>
+          </tr>
           <tr>
             <td><span class="exp-tag">合唱</span></td>
             <td>全国中小学生合唱比赛</td>
@@ -563,10 +706,21 @@
   </section>
 
   <!-- ==================== 个人风采 ==================== -->
-  <section>
+  <section id="gallery">
     <h2 class="section-title">个人风采</h2>
     <p class="text-sm text-slate-500 mb-5">点击可放大查看，以下为各类证书、获奖名单及演出照片。</p>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <!-- AI训练师证书 -->
+      <div class="card anim-card p-3 overflow-hidden group cursor-pointer" onclick="openLightbox('assets/AI训练师证书.jpg')">
+        <div class="aspect-[4/3] rounded-lg bg-slate-100 flex items-center justify-center overflow-hidden relative">
+          <img src="assets/AI训练师证书.jpg" alt="AI训练师证书" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="flex-col items-center justify-center text-slate-400" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span class="text-xs mt-1">添加照片</span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-500 mt-2 text-center">AI训练师证书（高级）</p>
+      </div>
       <!-- 钢琴十级 -->
       <div class="card anim-card p-3 overflow-hidden group cursor-pointer" onclick="openLightbox('assets/钢琴十级证书.jpg')">
         <div class="aspect-[4/3] rounded-lg bg-slate-100 flex items-center justify-center overflow-hidden relative">
@@ -626,7 +780,7 @@
   </section>
 
   <!-- ==================== 视频展示 ==================== -->
-  <section>
+  <section id="videos">
     <h2 class="section-title">视频展示</h2>
     <p class="text-sm text-slate-500 mb-5">个人剪辑作品展示。</p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -915,6 +1069,41 @@
       }
     });
   }
+
+  // ===== ABILITY MATRIX BARS =====
+  var skillBars = document.querySelectorAll('.skill-bar-fill');
+  var barObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var val = entry.target.getAttribute('data-val');
+        entry.target.style.width = val + '%';
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  skillBars.forEach(function(bar) { barObserver.observe(bar); });
+
+  // ===== NAV ACTIVE STATE =====
+  var navLinks = document.querySelectorAll('.top-nav a[data-nav]');
+  var sectionIds = ['hero','education','skills','matrix','experience','projects','awards','gallery','videos'];
+  var navObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.id;
+        navLinks.forEach(function(link) {
+          if (link.getAttribute('data-nav') === id) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.25, rootMargin: '-60px 0px -50% 0px' });
+  sectionIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) navObserver.observe(el);
+  });
 
 })();
 </script>
