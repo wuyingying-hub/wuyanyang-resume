@@ -295,6 +295,49 @@
     background: linear-gradient(135deg, var(--cyan), var(--emerald));
   }
 
+  /* ===== BGM Toggle ===== */
+  .bgm-toggle {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--emerald));
+    border: none;
+    cursor: pointer;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(6,182,212,0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .bgm-toggle:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(6,182,212,0.5); }
+  .bgm-toggle:active { transform: scale(0.95); }
+  .bgm-toggle svg { width: 22px; height: 22px; color: #fff; }
+  .bgm-toggle .icon-pause { display: none; }
+  .bgm-toggle.playing .icon-play { display: none; }
+  .bgm-toggle.playing .icon-pause { display: block; }
+  .bgm-toggle .music-bars { display: none; }
+  .bgm-toggle.playing .music-bars { display: flex; }
+  .bgm-toggle.playing svg { display: none; }
+  .music-bars span {
+    display: block;
+    width: 3px;
+    height: 14px;
+    background: #fff;
+    border-radius: 2px;
+    margin: 0 1.5px;
+    animation: musicBar 0.8s ease-in-out infinite;
+  }
+  .music-bars span:nth-child(2) { animation-delay: 0.2s; }
+  .music-bars span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes musicBar {
+    0%, 100% { height: 6px; }
+    50% { height: 16px; }
+  }
+
   /* ===== Ability Matrix ===== */
   .skill-bar-wrap {
     margin-bottom: 1.25rem;
@@ -352,6 +395,18 @@
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
+
+<!-- BGM -->
+<audio id="bgm" loop preload="auto">
+  <source src="assets/bgm.mp3" type="audio/mpeg">
+</audio>
+<button class="bgm-toggle" id="bgm-toggle" onclick="toggleBGM()" title="背景音乐">
+  <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+  <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+  <div class="music-bars">
+    <span></span><span></span><span></span>
+  </div>
+</button>
 
 <!-- ===== TOP NAVIGATION ===== -->
 <nav class="top-nav" id="top-nav">
@@ -1059,7 +1114,25 @@
     showToast(greetings[Math.floor(Math.random() * greetings.length)]);
   };
 
-// ===== SEAMLESS VIDEO LOOP =====
+// ===== BGM TOGGLE =====
+  var bgm = document.getElementById('bgm');
+  var bgmBtn = document.getElementById('bgm-toggle');
+  window.toggleBGM = function() {
+    if (bgm.paused) {
+      bgm.play().then(function() {
+        bgmBtn.classList.add('playing');
+      }).catch(function() {
+        showToast('请先将音乐文件放入 assets/ 文件夹');
+      });
+    } else {
+      bgm.pause();
+      bgmBtn.classList.remove('playing');
+    }
+  };
+  bgm.addEventListener('play', function() { bgmBtn.classList.add('playing'); });
+  bgm.addEventListener('pause', function() { bgmBtn.classList.remove('playing'); });
+
+  // ===== SEAMLESS VIDEO LOOP =====
   var heroVideo = document.getElementById('hero-video');
   if (heroVideo) {
     heroVideo.addEventListener('timeupdate', function() {
