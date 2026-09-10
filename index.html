@@ -1158,9 +1158,11 @@
   bgm.addEventListener('play', function() { bgmBtn.classList.add('playing'); });
   bgm.addEventListener('pause', function() { bgmBtn.classList.remove('playing'); });
 
-  // ===== SEAMLESS VIDEO LOOP =====
+  // ===== HERO VIDEO AUTO-PLAY + LOOP =====
   var heroVideo = document.getElementById('hero-video');
   if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.play().catch(function() {});
     heroVideo.addEventListener('timeupdate', function() {
       if (this.currentTime >= this.duration - 0.15) {
         this.currentTime = 0;
