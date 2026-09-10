@@ -338,6 +338,91 @@
     50% { height: 16px; }
   }
 
+  /* ===== BGM Prompt Overlay ===== */
+  .bgm-prompt {
+    position: fixed;
+    inset: 0;
+    z-index: 100001;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  .bgm-prompt.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .bgm-prompt-card {
+    background: linear-gradient(160deg, #1e293b, #0f172a);
+    border: 1px solid rgba(6,182,212,0.3);
+    border-radius: 20px;
+    padding: 2.5rem 2.5rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(6,182,212,0.15);
+    max-width: 360px;
+    margin: 1rem;
+  }
+  .bgm-prompt-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.25rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--emerald));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  .bgm-prompt-icon svg { width: 30px; height: 30px; color: #fff; }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(6,182,212,0.4); transform: scale(1); }
+    50% { box-shadow: 0 0 40px rgba(6,182,212,0.7); transform: scale(1.08); }
+  }
+  .bgm-prompt h3 {
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .bgm-prompt p {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  .bgm-prompt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 2rem;
+    background: linear-gradient(135deg, var(--cyan), var(--emerald));
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(6,182,212,0.4);
+  }
+  .bgm-prompt-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(6,182,212,0.6); }
+  .bgm-prompt-btn:active { transform: scale(0.96); }
+  .bgm-prompt-skip {
+    display: block;
+    margin-top: 0.85rem;
+    background: none;
+    border: none;
+    color: var(--slate-400);
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  .bgm-prompt-skip:hover { color: var(--slate-300); }
+
   /* ===== Ability Matrix ===== */
   .skill-bar-wrap {
     margin-bottom: 1.25rem;
@@ -407,6 +492,22 @@
     <span></span><span></span><span></span>
   </div>
 </button>
+
+<!-- BGM Prompt Overlay -->
+<div class="bgm-prompt" id="bgm-prompt">
+  <div class="bgm-prompt-card">
+    <div class="bgm-prompt-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </div>
+    <h3>背景音乐</h3>
+    <p>欢迎来到伍彦阳的个人简历<br>点击下方按钮播放背景音乐</p>
+    <button class="bgm-prompt-btn" onclick="startBGM()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      播放音乐
+    </button>
+    <button class="bgm-prompt-skip" onclick="skipBGM()">暂不播放</button>
+  </div>
+</div>
 
 <!-- ===== TOP NAVIGATION ===== -->
 <nav class="top-nav" id="top-nav">
@@ -1114,39 +1215,25 @@
     showToast(greetings[Math.floor(Math.random() * greetings.length)]);
   };
 
-// ===== BGM AUTO-PLAY =====
+// ===== BGM PROMPT =====
   var bgm = document.getElementById('bgm');
   var bgmBtn = document.getElementById('bgm-toggle');
+  var bgmPrompt = document.getElementById('bgm-prompt');
   var bgmStarted = false;
-  function tryPlayBGM() {
-    if (bgmStarted) return;
+  function closePrompt() {
+    bgmPrompt.classList.add('hidden');
+    setTimeout(function() { bgmPrompt.style.display = 'none'; }, 500);
+  }
+  window.startBGM = function() {
     bgm.play().then(function() {
       bgmStarted = true;
       bgmBtn.classList.add('playing');
-    }).catch(function() {
-      // browser blocks autoplay, try again on first interaction
-    });
-  }
-  function bgmOnFirstInteraction() {
-    if (!bgmStarted) {
-      bgm.play().then(function() {
-        bgmStarted = true;
-        bgmBtn.classList.add('playing');
-      }).catch(function() {});
-    }
-    document.removeEventListener('click', bgmOnFirstInteraction);
-    document.removeEventListener('touchstart', bgmOnFirstInteraction);
-    document.removeEventListener('keydown', bgmOnFirstInteraction);
-    document.removeEventListener('scroll', bgmOnFirstInteraction);
-  }
-  // Try autoplay immediately
-  tryPlayBGM();
-  // Fallback: play on first user interaction (browser autoplay policy)
-  document.addEventListener('click', bgmOnFirstInteraction);
-  document.addEventListener('touchstart', bgmOnFirstInteraction);
-  document.addEventListener('keydown', bgmOnFirstInteraction);
-  document.addEventListener('scroll', bgmOnFirstInteraction, { passive: true });
-  // Manual toggle still works
+    }).catch(function() {});
+    closePrompt();
+  };
+  window.skipBGM = function() {
+    closePrompt();
+  };
   window.toggleBGM = function() {
     if (bgm.paused) {
       bgm.play().then(function() { bgmBtn.classList.add('playing'); }).catch(function() {});
