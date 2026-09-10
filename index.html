@@ -1162,7 +1162,23 @@
   var heroVideo = document.getElementById('hero-video');
   if (heroVideo) {
     heroVideo.muted = true;
-    heroVideo.play().catch(function() {});
+    heroVideo.defaultMuted = true;
+    var heroVideoStarted = false;
+    function playHeroVideo() {
+      if (heroVideoStarted) return;
+      var p = heroVideo.play();
+      if (p) {
+        p.then(function() {
+          heroVideoStarted = true;
+        }).catch(function() {});
+      }
+    }
+    playHeroVideo();
+    heroVideo.addEventListener('loadeddata', playHeroVideo);
+    heroVideo.addEventListener('canplay', playHeroVideo);
+    heroVideo.addEventListener('canplaythrough', playHeroVideo);
+    document.addEventListener('click', function() { playHeroVideo(); }, { once: true });
+    document.addEventListener('touchstart', function() { playHeroVideo(); }, { once: true });
     heroVideo.addEventListener('timeupdate', function() {
       if (this.currentTime >= this.duration - 0.15) {
         this.currentTime = 0;
