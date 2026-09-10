@@ -397,7 +397,7 @@
 <div class="toast" id="toast"></div>
 
 <!-- BGM -->
-<audio id="bgm" loop preload="auto">
+<audio id="bgm" loop preload="auto" crossorigin="anonymous">
   <source src="assets/bgm.mp3" type="audio/mpeg">
 </audio>
 <button class="bgm-toggle" id="bgm-toggle" onclick="toggleBGM()" title="背景音乐">
@@ -1123,30 +1123,26 @@
     bgm.play().then(function() {
       bgmStarted = true;
       bgmBtn.classList.add('playing');
-    }).catch(function() {
-      // browser blocks autoplay, try again on first interaction
-    });
+    }).catch(function() {});
   }
+  // Force load audio data immediately
+  bgm.load();
+  // Play as soon as enough data is buffered
+  bgm.addEventListener('canplay', tryPlayBGM, { once: true });
+  // Also try immediately (some browsers already have it cached)
+  tryPlayBGM();
+  // Fallback: play on first user interaction (browser autoplay policy)
   function bgmOnFirstInteraction() {
-    if (!bgmStarted) {
-      bgm.play().then(function() {
-        bgmStarted = true;
-        bgmBtn.classList.add('playing');
-      }).catch(function() {});
-    }
+    tryPlayBGM();
     document.removeEventListener('click', bgmOnFirstInteraction);
     document.removeEventListener('touchstart', bgmOnFirstInteraction);
     document.removeEventListener('keydown', bgmOnFirstInteraction);
     document.removeEventListener('scroll', bgmOnFirstInteraction);
   }
-  // Try autoplay immediately
-  tryPlayBGM();
-  // Fallback: play on first user interaction (browser autoplay policy)
   document.addEventListener('click', bgmOnFirstInteraction);
   document.addEventListener('touchstart', bgmOnFirstInteraction);
   document.addEventListener('keydown', bgmOnFirstInteraction);
   document.addEventListener('scroll', bgmOnFirstInteraction, { passive: true });
-  // Manual toggle still works
   window.toggleBGM = function() {
     if (bgm.paused) {
       bgm.play().then(function() { bgmBtn.classList.add('playing'); }).catch(function() {});
