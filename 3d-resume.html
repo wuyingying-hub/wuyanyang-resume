@@ -17,6 +17,9 @@
   .load-ring{width:50px;height:50px;border:3px solid rgba(192,128,255,.2);border-top-color:#c080ff;border-radius:50%;animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   .load-text{margin-top:16px;font-size:13px;color:rgba(192,128,255,.6);letter-spacing:.1em}
+  .load-progress{margin-top:12px;font-size:11px;color:rgba(192,128,255,.4);letter-spacing:.05em}
+  .load-bar-wrap{width:160px;height:3px;background:rgba(192,128,255,.15);border-radius:2px;margin-top:12px;overflow:hidden}
+  .load-bar{height:100%;width:0%;background:linear-gradient(90deg,#c080ff,#ff80c0);border-radius:2px;transition:width .3s ease}
 
   /* 全屏滚动容器 */
   .scroll-container{position:relative;z-index:1;height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth}
@@ -119,6 +122,16 @@
   /* 入场动画 */
   .fade-up{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.22,1,.36,1)}
   .fade-up.show{opacity:1;transform:translateY(0)}
+  .fade-left{opacity:0;transform:translateX(-40px);transition:all .8s cubic-bezier(.22,1,.36,1)}
+  .fade-left.show{opacity:1;transform:translateX(0)}
+  .fade-right{opacity:0;transform:translateX(40px);transition:all .8s cubic-bezier(.22,1,.36,1)}
+  .fade-right.show{opacity:1;transform:translateX(0)}
+  .scale-in{opacity:0;transform:scale(.85);transition:all .7s cubic-bezier(.22,1,.36,1)}
+  .scale-in.show{opacity:1;transform:scale(1)}
+  .fade-up-delay-1{transition-delay:.1s!important}
+  .fade-up-delay-2{transition-delay:.2s!important}
+  .fade-up-delay-3{transition-delay:.3s!important}
+  .fade-up-delay-4{transition-delay:.4s!important}
 
   @media(max-width:768px){
     .section{padding:0 24px}
@@ -135,6 +148,8 @@
 <div id="loading">
   <div class="load-ring"></div>
   <div class="load-text">LOADING</div>
+  <div class="load-progress" id="loadProgress">加载 3D 模型中...</div>
+  <div class="load-bar-wrap"><div class="load-bar" id="loadBar"></div></div>
 </div>
 
 <a href="index.html" class="back-btn">← 返回首页</a>
@@ -416,6 +431,7 @@
       <div class="footer-title fade-up">Thank you for scrolling</div>
       <div class="footer-subtitle fade-up">共青团员 · 团龄5年 · Based in Changsha</div>
       <div class="footer-email fade-up">3142915185@qq.com</div>
+      <div class="footer-email fade-up fade-up-delay-1" style="font-size:13px;margin-top:4px;opacity:.7">wyy102212012@icloud.com</div>
       <div class="footer-made fade-up">MADE WITH ♥ BY WU YANYANG</div>
     </div>
   </section>
@@ -696,10 +712,34 @@ let modelLoaded = false
 const baseRotation = -Math.PI / 2
 let modelSize = 1.0  // 基准大小
 let modelY = 0       // 基准Y位置
+const loadBar = document.getElementById('loadBar')
+const loadProgress = document.getElementById('loadProgress')
+
+// 模拟进度条（让用户知道在加载）
+let simProgress = 0
+const simInterval = setInterval(() => {
+  simProgress += Math.random() * 3
+  if (simProgress > 90) simProgress = 90
+  if (loadBar) loadBar.style.width = simProgress + '%'
+}, 200)
+
+// 8秒超时，避免一直卡着
+const loadTimeout = setTimeout(() => {
+  if (!modelLoaded) {
+    console.warn('模型加载超时，继续显示页面')
+    clearInterval(simInterval)
+    if (loadBar) loadBar.style.width = '100%'
+    if (loadProgress) loadProgress.textContent = '模型加载较慢，内容已就绪'
+    setTimeout(hideLoading, 500)
+  }
+}, 8000)
 
 loader.load(
   'assets/model.glb',
   (gltf) => {
+    clearInterval(simInterval)
+    clearTimeout(loadTimeout)
+    
     model = gltf.scene
     model.rotation.y = baseRotation - Math.PI / 4  // 首屏向左45度
     model.rotation.x = 0.15  // 初始微微低头
@@ -721,12 +761,26 @@ loader.load(
     targetModelScale = model.scale.x
     targetModelY = model.position.y
     
-    hideLoading()
+    if (loadBar) loadBar.style.width = '100%'
+    if (loadProgress) loadProgress.textContent = '加载完成'
+    
+    setTimeout(hideLoading, 400)
   },
-  undefined,
+  (xhr) => {
+    // 真实进度
+    if (xhr.lengthComputable && loadBar) {
+      const percent = (xhr.loaded / xhr.total) * 100
+      loadBar.style.width = percent + '%'
+      if (loadProgress) loadProgress.textContent = '加载 3D 模型中... ' + Math.round(percent) + '%'
+    }
+  },
   (err) => {
     console.warn('模型加载失败:', err)
-    hideLoading()
+    clearInterval(simInterval)
+    clearTimeout(loadTimeout)
+    if (loadProgress) loadProgress.textContent = '模型加载失败，内容正常显示'
+    if (loadBar) loadBar.style.width = '100%'
+    setTimeout(hideLoading, 800)
   }
 )
 
@@ -790,12 +844,17 @@ function updateScrollState() {
       d.classList.toggle('active', i === currentSection)
     })
     
-    // 入场动画（只触发当前section）
+    // 入场动画（只触发当前section，错落有致）
     const fadeEls = fadeElsBySection[currentSection]
     if (fadeEls && fadeEls.length) {
       fadeEls.forEach((el, i) => {
         if (!el.classList.contains('show')) {
-          setTimeout(() => el.classList.add('show'), i * 80)
+          const delay = i * 100
+          setTimeout(() => {
+            el.classList.add('show')
+            // 额外的弹跳感
+            el.style.transition = 'all .8s cubic-bezier(.34,1.56,.64,1)'
+          }, delay)
         }
       })
     }
@@ -809,7 +868,7 @@ function updateScrollState() {
         if (val && bar.style.width !== val + '%') {
           setTimeout(() => {
             bar.style.width = val + '%'
-          }, 200 + i * 100)
+          }, 300 + i * 120)
         }
       })
     }
