@@ -85,6 +85,26 @@
   .exp-place{font-size:13px;color:rgba(232,213,255,.5);margin-bottom:8px}
   .exp-desc{font-size:13px;line-height:1.7;color:rgba(232,213,255,.6)}
 
+  /* 能力矩阵进度条 */
+  .matrix-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px 32px;max-width:700px;width:100%}
+  .skill-bar-wrap{width:100%}
+  .skill-bar-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;color:rgba(232,213,255,.8)}
+  .skill-bar-label span:last-child{color:rgba(192,128,255,.8);font-weight:600}
+  .skill-bar-track{width:100%;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+  .skill-bar-fill{height:100%;width:0;background:linear-gradient(90deg,rgba(192,128,255,.8),rgba(255,128,192,.8));border-radius:3px;transition:width 1.5s cubic-bezier(.22,1,.36,1);box-shadow:0 0 10px rgba(192,128,255,.4)}
+
+  /* 获奖证书表格 */
+  .awards-table{width:100%;max-width:800px;border-collapse:separate;border-spacing:0;font-size:13px}
+  .awards-table thead th{padding:14px 16px;text-align:left;font-weight:600;color:rgba(192,128,255,.9);background:rgba(192,128,255,.1);border-bottom:1px solid rgba(192,128,255,.2);font-size:12px;letter-spacing:.05em}
+  .awards-table thead th:first-child{border-radius:12px 0 0 0}
+  .awards-table thead th:last-child{border-radius:0 12px 0 0}
+  .awards-table tbody td{padding:14px 16px;border-bottom:1px solid rgba(192,128,255,.08);color:rgba(232,213,255,.75);background:rgba(20,10,40,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .awards-table tbody tr:hover td{background:rgba(192,128,255,.08)}
+  .awards-table tbody tr:last-child td:first-child{border-radius:0 0 0 12px}
+  .awards-table tbody tr:last-child td:last-child{border-radius:0 0 12px 0}
+  .award-tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;background:rgba(192,128,255,.15);color:#c080ff;font-weight:500}
+  .award-level strong{color:#ff80c0;font-weight:600}
+
   /* 页脚 */
   .footer-content{text-align:center;position:relative;z-index:2}
   .footer-title{font-size:clamp(24px,4vw,36px);font-weight:600;margin-bottom:16px;text-shadow:0 0 30px rgba(192,128,255,.3)}
@@ -199,6 +219,13 @@
             <div class="skill-desc">会基本的视频剪辑操作，曾为班级晚会节目完成片段剪辑、字幕添加与导唱音轨合成。</div>
           </div>
         </div>
+        <div class="skill-item fade-up">
+          <div class="skill-icon">🎹</div>
+          <div>
+            <div class="skill-title">艺术特长</div>
+            <div class="skill-desc">钢琴十级、舞蹈十级、乐理三级，有舞台演出与合唱指挥经验。</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -271,8 +298,120 @@
     </div>
   </section>
 
-  <!-- Section 5: Footer -->
+  <!-- Section 5: 能力矩阵 -->
   <section class="section" data-index="5">
+    <div style="width:100%;max-width:700px">
+      <div class="section-num fade-up">05 / MATRIX</div>
+      <h2 class="section-title fade-up">能力矩阵</h2>
+      <div class="matrix-grid">
+        <div class="skill-bar-wrap fade-up">
+          <div class="skill-bar-label"><span>英语应用</span><span>80%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="80"></div></div>
+        </div>
+        <div class="skill-bar-wrap fade-up">
+          <div class="skill-bar-label"><span>办公软件 (WPS/PPT)</span><span>90%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="90"></div></div>
+        </div>
+        <div class="skill-bar-wrap fade-up">
+          <div class="skill-bar-label"><span>视频剪辑</span><span>78%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="78"></div></div>
+        </div>
+        <div class="skill-bar-wrap fade-up">
+          <div class="skill-bar-label"><span>艺术特长 (声乐)</span><span>95%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="95"></div></div>
+        </div>
+        <div class="skill-bar-wrap fade-up">
+          <div class="skill-bar-label"><span>组织协调</span><span>85%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="85"></div></div>
+        </div>
+        <div class="skill-bar-wrap fade-up">
+          <div class="skill-bar-label"><span>沟通表达</span><span>88%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="88"></div></div>
+        </div>
+        <div class="skill-bar-wrap fade-up">
+          <div class="skill-bar-label"><span>AI 工具应用</span><span>80%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="80"></div></div>
+        </div>
+        <div class="skill-bar-wrap fade-up">
+          <div class="skill-bar-label"><span>团队协作</span><span>87%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-val="87"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: 获奖与证书 -->
+  <section class="section" data-index="6">
+    <div style="width:100%;max-width:800px">
+      <div class="section-num fade-up">06 / AWARDS</div>
+      <h2 class="section-title fade-up">获奖与证书</h2>
+      <div style="overflow-x:auto;width:100%">
+        <table class="awards-table fade-up">
+          <thead>
+            <tr>
+              <th>类别</th>
+              <th>荣誉 / 证书</th>
+              <th>等级</th>
+              <th>时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="award-tag">AI</span></td>
+              <td>达摩院·人工智能训练师（高级）</td>
+              <td class="award-level"><strong>高级证书</strong></td>
+              <td>2026</td>
+            </tr>
+            <tr>
+              <td><span class="award-tag">合唱</span></td>
+              <td>全国中小学生合唱比赛</td>
+              <td class="award-level"><strong>二等奖</strong></td>
+              <td>2024</td>
+            </tr>
+            <tr>
+              <td><span class="award-tag">合唱</span></td>
+              <td>湖南省中学生合唱比赛</td>
+              <td class="award-level"><strong>一等奖第一名</strong></td>
+              <td>2024</td>
+            </tr>
+            <tr>
+              <td><span class="award-tag">舞蹈</span></td>
+              <td>湖南省舞蹈比赛</td>
+              <td class="award-level"><strong>金奖</strong></td>
+              <td>2018</td>
+            </tr>
+            <tr>
+              <td><span class="award-tag">独唱</span></td>
+              <td>长沙市"三独"比赛</td>
+              <td>三等奖</td>
+              <td>2024、2025</td>
+            </tr>
+            <tr>
+              <td><span class="award-tag">钢琴</span></td>
+              <td>中国音乐学院钢琴考级</td>
+              <td class="award-level"><strong>十级</strong>（最高级）</td>
+              <td>2020</td>
+            </tr>
+            <tr>
+              <td><span class="award-tag">舞蹈</span></td>
+              <td>中国舞蹈家协会考级</td>
+              <td class="award-level"><strong>十级</strong>（最高级）</td>
+              <td>2020</td>
+            </tr>
+            <tr>
+              <td><span class="award-tag">乐理</span></td>
+              <td>中国音乐学院乐理考级</td>
+              <td class="award-level"><strong>三级</strong></td>
+              <td>2020</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Footer -->
+  <section class="section" data-index="7">
     <div class="footer-content">
       <div class="footer-title fade-up">Thank you for scrolling</div>
       <div class="footer-subtitle fade-up">共青团员 · 团龄5年 · Based in Changsha</div>
@@ -657,6 +796,20 @@ function updateScrollState() {
       fadeEls.forEach((el, i) => {
         if (!el.classList.contains('show')) {
           setTimeout(() => el.classList.add('show'), i * 80)
+        }
+      })
+    }
+    
+    // 能力矩阵进度条动画
+    const section = sections[currentSection]
+    if (section) {
+      const bars = section.querySelectorAll('.skill-bar-fill')
+      bars.forEach((bar, i) => {
+        const val = bar.getAttribute('data-val')
+        if (val && bar.style.width !== val + '%') {
+          setTimeout(() => {
+            bar.style.width = val + '%'
+          }, 200 + i * 100)
         }
       })
     }
