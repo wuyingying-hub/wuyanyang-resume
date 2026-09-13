@@ -115,6 +115,22 @@
   .footer-email{font-size:15px;color:rgba(232,213,255,.8);letter-spacing:.05em}
   .footer-made{margin-top:48px;font-size:11px;color:rgba(192,128,255,.3);letter-spacing:.2em}
 
+  /* 背景音乐按钮 */
+  .bgm-toggle{position:fixed;top:24px;right:24px;z-index:100;width:40px;height:40px;border-radius:50%;background:rgba(20,10,40,.7);border:1px solid rgba(192,128,255,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease;color:#c080ff;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .bgm-toggle:hover{background:rgba(192,128,255,.15);border-color:rgba(192,128,255,.4);transform:scale(1.1)}
+  .bgm-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .bgm-toggle .icon-pause{display:none}
+  .bgm-toggle.playing .icon-play{display:none}
+  .bgm-toggle.playing .icon-pause{display:block}
+  .music-bars{display:none;gap:3px;align-items:flex-end;height:16px}
+  .bgm-toggle.playing .music-bars{display:flex}
+  .bgm-toggle.playing svg{display:none}
+  .music-bars span{width:3px;background:linear-gradient(to top,#c080ff,#ff80c0);border-radius:2px;animation:musicBar .8s ease-in-out infinite}
+  .music-bars span:nth-child(1){height:60%}
+  .music-bars span:nth-child(2){height:100%;animation-delay:.2s}
+  .music-bars span:nth-child(3){height:75%;animation-delay:.4s}
+  @keyframes musicBar{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+
   /* 返回按钮 */
   .back-btn{position:fixed;top:24px;left:24px;z-index:100;padding:10px 20px;background:rgba(20,10,40,.7);border:1px solid rgba(192,128,255,.2);border-radius:999px;color:#e8d5ff;font-size:13px;text-decoration:none;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:all .3s ease}
   .back-btn:hover{background:rgba(192,128,255,.15);border-color:rgba(192,128,255,.4)}
@@ -153,6 +169,16 @@
 </div>
 
 <a href="index.html" class="back-btn">← 返回首页</a>
+
+<!-- 背景音乐 -->
+<audio id="bgm" loop preload="auto">
+  <source src="assets/bjd_greeting_new.mp4" type="audio/mp4">
+</audio>
+<button class="bgm-toggle" id="bgmToggle" title="背景音乐">
+  <svg class="icon-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+  <svg class="icon-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+  <div class="music-bars"><span></span><span></span><span></span></div>
+</button>
 
 <!-- 滚动指示器 -->
 <div class="scroll-dots" id="scrollDots"></div>
@@ -798,6 +824,41 @@ function hideLoading() {
     document.getElementById('heroContact').classList.add('show')
   }, 200)
 }
+
+// ===== 背景音乐控制 =====
+const bgm = document.getElementById('bgm')
+const bgmToggle = document.getElementById('bgmToggle')
+let bgmStarted = false
+
+function toggleBGM() {
+  if (bgm.paused) {
+    bgm.play().then(() => {
+      bgmStarted = true
+      bgmToggle.classList.add('playing')
+    }).catch(() => {})
+  } else {
+    bgm.pause()
+    bgmToggle.classList.remove('playing')
+  }
+}
+
+bgmToggle.addEventListener('click', toggleBGM)
+bgm.addEventListener('play', () => bgmToggle.classList.add('playing'))
+bgm.addEventListener('pause', () => bgmToggle.classList.remove('playing'))
+
+// 用户首次交互后尝试自动播放
+let firstInteraction = false
+function tryAutoPlay() {
+  if (firstInteraction || bgmStarted) return
+  firstInteraction = true
+  bgm.volume = 0.4
+  bgm.play().then(() => {
+    bgmStarted = true
+    bgmToggle.classList.add('playing')
+  }).catch(() => {})
+}
+document.addEventListener('click', tryAutoPlay, { once: true })
+document.addEventListener('scroll', tryAutoPlay, { once: true })
 
 // Resize
 window.addEventListener('resize', () => {
